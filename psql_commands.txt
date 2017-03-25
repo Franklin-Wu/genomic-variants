@@ -1,0 +1,7 @@
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_toy.tsv';
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_abridged.tsv';
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_headless.tsv';
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_headless_utf8.tsv';

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title>Invitae Genomic Variants</title>
+      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+      <!-- Javascript -->
+      <script>
+         $(function() {
+            $("#gene-name-autocomplete").autocomplete({
+               minLength: 2
+            });
+         });
+         function isArrowKey(key) {
+            if (key >= 37 && key <= 40) {
+               return true;
+            } else {
+               return false;
+            }
+         }
+         function isEnterKey(key) {
+            if (key == 13) {
+               return true;
+            } else {
+               return false;
+            }
+         }
+         function updateGeneTable(gene) {
+            $('tbody#gene-table-body tr').remove();
+            $.getJSON("https://nameless-wildwood-39643.herokuapp.com/api/getGenesNamed?name=" + gene, function(json) {
+               rows = json.data;
+               rowCount = rows.length;
+               for (var rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+                  var row = rows[rowIndex];
+                  var tr = $('<tr/>');
+                  tr.append("<td>" + row.name    + "</td>");
+                  tr.append("<td>" + row.nchange + "</td>");
+                  tr.append("<td>" + row.pchange + "</td>");
+                  tr.append("<td>" + row.alias   + "</td>");
+                  tr.append("<td>" + row.region  + "</td>");
+                  tr.append("<td>" + row.rclass  + "</td>");
+                  tr.append("<td>" + row.leval   + "</td>");
+                  tr.append("<td>" + row.lupdate + "</td>");
+                  if (row.url.length > 0) {
+                     tr.append("<td><a target=\"_blank\" href=" + row.url + ">link</a></td>");
+                  } else {
+                     tr.append("<td></td>");
+                  }
+                  $('tbody#gene-table-body').append(tr);
+               }
+            });
+         }
+         function onGeneInputKeyup(event) {
+            key = event.which;
+            if (isEnterKey(key)) {
+               $("input#gene-name-autocomplete").blur();
+               updateGeneTable($("input#gene-name-autocomplete").val());
+            } else if (!isArrowKey(key)) {
+               var prefix = $("input#gene-name-autocomplete").val();
+               if (prefix.length < 2) {
+                  $("#gene-name-autocomplete").autocomplete("option", "source", "");
+               } else {
+                  $.getJSON("https://nameless-wildwood-39643.herokuapp.com/api/getGeneNamesStartingWith?prefix=" + prefix, function(json) {
+                     $("#gene-name-autocomplete").autocomplete("option", {source : json.data.names});
+                     $("#gene-name-autocomplete").autocomplete("search", prefix);
+                  });
+               }
+            }
+         }
+      </script>
+
+      <!-- CSS -->
+      <style>
+         .background {
+            background-color : #eeeeee;
+         }
+         .font-matching-jquery-ui {
+            font-family: "Trebuchet MS", Helvetica, sans-serif;        
+         }
+         table, th, td {
+            border: 1px solid black;
+         }
+      </style>      
+   </head>
+   
+   <!-- HTML --> 
+   <body class = "background">
+      <div align = "center" class = "font-matching-jquery-ui" style = "padding-bottom: 8px">
+         <p style = "font-size: 22px">Invitae Genomic Variants</p>
+      </div>
+      <div align = "center" style = "padding-bottom: 16px">
+         <div class = "ui-widget">
+            <label for = "gene-name-autocomplete">Gene: </label>
+            <!--
+            Needs onkeyup and not onkeydown or onkeypress, both of which occur before the autocomplete has a chance to respond to the new source.
+            -->
+            <input class = "background" id = "gene-name-autocomplete" onkeyup = "onGeneInputKeyup(event)">
+            <p class = "font-matching-jquery-ui" style = "font-size: 11.5px">Type 2 or more characters for autocompletion.</p>
+         </div>
+      </div>
+      <div align = "center">
+         <table class = "font-matching-jquery-ui" style = "width:100%">
+            <thead>
+               <tr>
+                  <th>Gene</th>
+                  <th>Nucleotide Change</th>
+                  <th>Protein Change</th>
+                  <th>Alias</th>
+                  <th>Region</th>
+                  <th>Reported Classification</th>
+                  <th>Last Evaluated</th>
+                  <th>Last Updated</th>
+                  <th>More Info</th>
+               </tr>
+            <thead>
+            <tbody id = "gene-table-body">
+            </tbody>
+         </table>
+      </div>
+   </body>
+</html>
