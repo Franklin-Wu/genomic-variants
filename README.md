@@ -6,8 +6,17 @@ Because the app is a free, personal app, it will sleep after 1 hour of inactivit
 
 The data is stored in a table a Heroku add-on Postgres database at postgres://rriqhkllqzpbqv:792e466e55a7aaa5f4c26d83b4494f5c55366cefa5278ee8a3115b195040c26f@ec2-54-163-233-89.compute-1.amazonaws.com:5432/df92h7ms5nddmi.
 
+Because the project is based on a Heroku starter app, it includes some boiler-plate content. The majority of the new content written specifically for this app exists in these files:
+    README.md
+    doc/apis_swagger.yaml
+    genesearch/apis.py
+    genesearch/models.py
+    genesearch/migrations/0001_initial.py
+    genesearch/templates/index.html
+    startup/urls.py
 
-The project specification is as follows:
+
+The project definition is as follows:
 
 Assignment
 -----------------
