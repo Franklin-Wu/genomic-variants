@@ -14,9 +14,10 @@ Because the project is based on a Heroku starter app, it includes some boiler-pl
 - genesearch/migrations/0001_initial.py
 - genesearch/templates/index.html
 - startup/urls.py
-\s\s
 
-The project definition is as follows:
+
+Project Definition
+==================
 
 Assignment
 -----------------
