@@ -16,7 +16,7 @@ Because the project is based on a Heroku starter app, it includes some boiler-pl
 - startup/urls.py
 
 
-==================
+
 Project Definition
 ==================
 
