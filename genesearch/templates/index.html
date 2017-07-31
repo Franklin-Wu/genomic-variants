@@ -2,7 +2,7 @@
 <html lang = "en">
    <head>
       <meta charset = "utf-8">
-      <title>Invitae Genomic Variants</title>
+      <title>Genomic Variants</title>
       <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
       <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -30,7 +30,7 @@
          }
          function updateGeneTable(gene) {
             $('tbody#gene-table-body tr').remove();
-            $.getJSON("https://nameless-wildwood-39643.herokuapp.com/api/getGenesNamed?name=" + gene, function(json) {
+            $.getJSON("https://genomic-variants.herokuapp.com/api/getGenesNamed?name=" + gene, function(json) {
                rows = json.data;
                rowCount = rows.length;
                for (var rowIndex = 0; rowIndex < rowCount; rowIndex++) {
@@ -63,7 +63,7 @@
                if (prefix.length < 2) {
                   $("#gene-name-autocomplete").autocomplete("option", "source", "");
                } else {
-                  $.getJSON("https://nameless-wildwood-39643.herokuapp.com/api/getGeneNamesStartingWith?prefix=" + prefix, function(json) {
+                  $.getJSON("https://genomic-variants.herokuapp.com/api/getGeneNamesStartingWith?prefix=" + prefix, function(json) {
                      $("#gene-name-autocomplete").autocomplete("option", {source : json.data.names});
                      $("#gene-name-autocomplete").autocomplete("search", prefix);
                   });
@@ -89,7 +89,7 @@
    <!-- HTML --> 
    <body class = "background">
       <div align = "center" class = "font-matching-jquery-ui" style = "padding-bottom: 8px">
-         <p style = "font-size: 22px">Invitae Genomic Variants</p>
+         <p style = "font-size: 22px">Genomic Variants</p>
       </div>
       <div align = "center" style = "padding-bottom: 16px">
          <div class = "ui-widget">

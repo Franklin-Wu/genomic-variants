@@ -1,7 +1,47 @@
-\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_toy.tsv';
+# First, install the Postgres app locally (http://postgresapp.com).
+#
+# To show database information:
+# > heroku pg:info
+#
+# For other commands:
+# > heroku help pg
+#
+# To open a psql shell to the database:
+# > heroku pg:psql
+#
+# To list tables from a psql shell:
+# <path>::DATABASE=> \t
+#
+# For other psql commands:
+# <path>::DATABASE=> \?
+#
+# For other SQL commands:
+# <path>::DATABASE=> \h
+#
+# To quit a psql shell:
+# <path>::DATABASE=> \q
 
-\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_abridged.tsv';
 
-\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_headless.tsv';
+# Create the table:
 
-\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/fwu/Media/Code/Invitae/coding-assignment/variant_results_headless_utf8.tsv';
+CREATE SEQUENCE genesearch_genes_sequence;
+
+CREATE TABLE genesearch_genes (id int PRIMARY KEY DEFAULT NEXTVAL('genesearch_genes_sequence'), name VARCHAR(127), nchange VARCHAR(2047), pchange VARCHAR(2047), maps VARCHAR(2047), alias VARCHAR(2047), trans VARCHAR(2047), region VARCHAR(2047), rclass VARCHAR(2047), iclass VARCHAR(2047), source VARCHAR(2047), leval VARCHAR(2047), lupdate VARCHAR(2047), url VARCHAR(2047), comment VARCHAR(8191));
+
+
+# Populate the table from the text file. (Do only one of the following.)
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/franklinwu/Dropbox (Personal)/Heroku/genomic-variants/variant_results_toy.tsv';
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/franklinwu/Dropbox (Personal)/Heroku/genomic-variants/variant_results_abridged.tsv';
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/franklinwu/Dropbox (Personal)/Heroku/genomic-variants/variant_results_abridged_headless.tsv';
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/franklinwu/Dropbox (Personal)/Heroku/genomic-variants/variant_results_headless.tsv';
+
+\copy genesearch_genes (name, nchange, pchange, maps, alias, trans, region, rclass, iclass, source, leval, lupdate, url, comment) FROM '/Users/franklinwu/Dropbox (Personal)/Heroku/genomic-variants/variant_results_headless_utf8.tsv';
+
+
+# Not sure if this is necessary as well:
+
+heroku addons:create heroku-postgresql:hobby-dev

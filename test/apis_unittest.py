@@ -7,56 +7,56 @@
 import requests, unittest
 
 class TestApis(unittest.TestCase):
-    baseurl = 'https://nameless-wildwood-39643.herokuapp.com/api/'
+    baseurl = 'https://genomic-variants.herokuapp.com/api/'
 
     def test_noSuchRequestMissing(self):
         response = requests.get(TestApis.baseurl)
         json = response.json()
         error = json['error']
         self.assertEqual(error['message'], 'no such request /api/')
-        self.assertEqual(error['code'], 1)
+        self.assertEqual(error['code'], 404)
 
     def test_noSuchRequestIncorrect(self):
         response = requests.get(TestApis.baseurl + 'badRequest')
         json = response.json()
         error = json['error']
         self.assertEqual(error['message'], 'no such request /api/badRequest')
-        self.assertEqual(error['code'], 1)
+        self.assertEqual(error['code'], 404)
 
     def test_getGeneNamesStartingWithRequiresParameterMissing(self):
         response = requests.get(TestApis.baseurl + 'getGeneNamesStartingWith')
         json = response.json()
         error = json['error']
         self.assertEqual(error['message'], '/api/getGeneNamesStartingWith GET requires parameter prefix')
-        self.assertEqual(error['code'], 3)
+        self.assertEqual(error['code'], 400)
 
     def test_getGenesNamedRequiresParameterMissing(self):
         response = requests.get(TestApis.baseurl + 'getGenesNamed')
         json = response.json()
         error = json['error']
         self.assertEqual(error['message'], '/api/getGenesNamed GET requires parameter name')
-        self.assertEqual(error['code'], 3)
+        self.assertEqual(error['code'], 400)
 
     def test_getGeneNamesStartingWithRequiresParameterIncorrect(self):
         response = requests.get(TestApis.baseurl + 'getGeneNamesStartingWith?p=xy')
         json = response.json()
         error = json['error']
         self.assertEqual(error['message'], '/api/getGeneNamesStartingWith GET requires parameter prefix')
-        self.assertEqual(error['code'], 3)
+        self.assertEqual(error['code'], 400)
 
     def test_getGenesNamedRequiresParameterIncorrect(self):
         response = requests.get(TestApis.baseurl + 'getGenesNamed?n=XYLT1')
         json = response.json()
         error = json['error']
         self.assertEqual(error['message'], '/api/getGenesNamed GET requires parameter name')
-        self.assertEqual(error['code'], 3)
+        self.assertEqual(error['code'], 400)
 
     def test_getGeneNamesStartingWithParameterTooShort(self):
         response = requests.get(TestApis.baseurl + 'getGeneNamesStartingWith?prefix=')
         json = response.json()
         error = json['error']
         self.assertEqual(error['message'], '/api/getGeneNamesStartingWith GET parameter prefix requires at least 1 characters')
-        self.assertEqual(error['code'], 4)
+        self.assertEqual(error['code'], 400)
 
     def test_getGeneNamesStartingWithZeroHits(self):
         response = requests.get(TestApis.baseurl + 'getGeneNamesStartingWith?prefix=xyz')

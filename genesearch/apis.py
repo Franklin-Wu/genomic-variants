@@ -9,7 +9,7 @@ class JsonResponseNoSuchRequest(JsonResponse):
         super(JsonResponseNoSuchRequest, self).__init__(
             dict(
                 error = dict(
-                    code = 1,
+                    code = 404, # Not Found
                     message = 'no such request ' + request
                 )
             )
@@ -20,7 +20,7 @@ class JsonResponseNoSuchMethod(JsonResponse):
         super(JsonResponseNoSuchMethod, self).__init__(
             dict(
                 error = dict(
-                    code = 2,
+                    code = 404, # Not Found
                     message = request + ' has no such method ' + method
                 )
             )
@@ -31,7 +31,7 @@ class JsonResponseMethodRequiresParameter(JsonResponse):
         super(JsonResponseMethodRequiresParameter, self).__init__(
             dict(
                 error = dict(
-                    code = 3,
+                    code = 400, # Bad Request
                     message = request + ' ' + method + ' requires parameter ' + parameter
                 )
             )
@@ -42,7 +42,7 @@ class JsonResponseMethodParameterTooShort(JsonResponse):
         super(JsonResponseMethodParameterTooShort, self).__init__(
             dict(
                 error = dict(
-                    code = 4,
+                    code = 400, # Bad Request
                     message = request + ' ' + method + ' parameter ' + parameter + ' requires at least ' + str(min_char_count) + ' characters'
                 )
             )

@@ -1,6 +1,6 @@
-# invitae-genomic-variants
+# genomic-variants
 
-A Python app at https://nameless-wildwood-39643.herokuapp.com/, based on the Heroku starter app, python-getting-started, which can easily be deployed to Heroku.
+A Python app at https://genomic-variants.herokuapp.com/, based on the Heroku starter app, python-getting-started, which can easily be deployed to Heroku.
 
 Because the app is a free, personal app, it will sleep after 1 hour of inactivity, after which it will take up to 30 seconds to wake up. Therefore, when you first access the app, it may take up to 30 seconds before it responds.
 

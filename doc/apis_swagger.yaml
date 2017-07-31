@@ -1,14 +1,14 @@
 swagger: '2.0'
 info:
   version: 1.0.0
-  title: Invitae Genomic Variants on Heroku
+  title: Genomic Variants on Heroku
   description: |
     **This example has a working backend hosted in Heroku**
 
     You can try all HTTP operations described in this Swagger spec.
 
-    Find source code of this API [here](https://github.com/Franklin-Wu/invitae-genomic-variants)
-host: nameless-wildwood-39643.herokuapp.com
+    Find source code of this API [here](https://github.com/Franklin-Wu/genomic-variants)
+host: genomic-variants.herokuapp.com
 basePath: /api
 schemes:
   - http
@@ -19,8 +19,8 @@ paths:
   /:
     get:
       responses:
-        default:
-          description: A JSON object containing an error code.
+        "404":
+          description: A JSON object containing a 404 error code.
           schema:
             $ref: '#/definitions/errorResponse'
   '/getGeneNamesStartingWith':
@@ -32,10 +32,18 @@ paths:
           type: string
           required: true
       responses:
-        default:
+        "200":
           description: A JSON object containing an array of gene names.
           schema:
             $ref: '#/definitions/geneNames'
+        "400":
+          description: A JSON object containing a 400 error code.
+          schema:
+            $ref: '#/definitions/errorResponse'
+        "404":
+          description: A JSON object containing a 404 error code.
+          schema:
+            $ref: '#/definitions/errorResponse'
   '/getGenesNamed':
     get:
       parameters:
@@ -45,10 +53,18 @@ paths:
           type: string
           required: true
       responses:
-        default:
+        "200":
           description: A JSON object containing an array of gene objects.
           schema:
             $ref: '#/definitions/genes'
+        "400":
+          description: A JSON object containing a 400 error code.
+          schema:
+            $ref: '#/definitions/errorResponse'
+        "404":
+          description: A JSON object containing a 404 error code.
+          schema:
+            $ref: '#/definitions/errorResponse'
 definitions:
   errorResponse:
     type: object
